@@ -1,12 +1,10 @@
 import { combineReducers } from "redux";
 import user from "./user";
-import facility from "./facility";
-import cart from "./cart";
+import tabs from "./tabs";
 
 const rootReducer = combineReducers({
   user,
-  cart,
-  facility,
+  tabs,
 });
 
 export default rootReducer;

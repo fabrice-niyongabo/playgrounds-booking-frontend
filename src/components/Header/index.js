@@ -1,12 +1,11 @@
 import React, { useEffect, useRef } from "react";
 import { FaHome } from "react-icons/fa";
-import { IoMdCall } from "react-icons/io";
 import { MdLogin, MdOutlineDashboard } from "react-icons/md";
 import { RiLogoutCircleLine } from "react-icons/ri";
 import { FaRegUserCircle } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { BsCart4 } from "react-icons/bs";
+import { GoSignIn } from "react-icons/go";
 
 import "../../styles/header.scss";
 
@@ -21,12 +20,20 @@ function Header() {
       }
     });
   }, []);
-  const { cart } = useSelector((state) => state.cart);
   const { token, fullName, role } = useSelector((state) => state.user);
   return (
     <div className="header-main-container" ref={navHeaderRef}>
       <div className="log-container">
-        <Link to="/">
+        <Link
+          to="/"
+          style={{
+            textDecoration: "none",
+            fontSize: 20,
+            textTransform: "uppercase",
+            color: "#f46a06",
+          }}
+          className="text-orange"
+        >
           <span>Circle sportif</span>
         </Link>
       </div>
@@ -34,29 +41,18 @@ function Header() {
         <ul>
           <li>
             <Link to="/">
-              <FaHome size={20} color="black" />
+              <FaHome size={20} color="#f46a06" />
               <span>Home</span>
             </Link>
           </li>
-          {/* <li>
-            <Link to="/contact">
-              <IoMdCall size={20} color="black" />
-              <span>Contact Us</span>
-            </Link>
-          </li> */}
-          <li>
-            <Link to="/cart">
-              <BsCart4 size={20} color="black" />
-              <span>Cart({cart.length})</span>
-            </Link>
-          </li>
+
           {token && token !== "" && fullName !== "" ? (
             <>
               {role === "user" ? (
                 <>
                   <li>
                     <Link to="/profile">
-                      <FaRegUserCircle size={20} color="black" />
+                      <FaRegUserCircle size={20} color="#f46a06" />
                       <span>{fullName.split(" ")[0]}</span>
                     </Link>
                   </li>
@@ -65,7 +61,7 @@ function Header() {
                 <>
                   <li>
                     <Link to="/dashboard">
-                      <MdOutlineDashboard size={20} color="black" />
+                      <MdOutlineDashboard size={20} color="#f46a06" />
                       <span>Dashboard</span>
                     </Link>
                   </li>
@@ -73,7 +69,7 @@ function Header() {
               )}
               <li>
                 <Link to="/logout">
-                  <RiLogoutCircleLine size={20} color="black" />
+                  <RiLogoutCircleLine size={20} color="#f46a06" />
                   <span>Logout</span>
                 </Link>
               </li>
@@ -81,8 +77,14 @@ function Header() {
           ) : (
             <>
               <li>
+                <Link to="/signup">
+                  <GoSignIn size={20} color="#f46a06" />
+                  <span>SignUp</span>
+                </Link>
+              </li>
+              <li>
                 <Link to="/login">
-                  <MdLogin size={20} color="black" />
+                  <MdLogin size={20} color="#f46a06" />
                   <span>Login</span>
                 </Link>
               </li>

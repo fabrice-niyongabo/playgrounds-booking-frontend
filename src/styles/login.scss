@@ -9,6 +9,14 @@
     height: max-content;
     padding: 4rem 5rem;
 
+    .cont {
+      margin: 0px auto;
+      width: 50%;
+      background-color: $white;
+      border-radius: 10px;
+      padding: 3rem;
+    }
+
     .login-header {
       h1 {
         font-family: $quickSand;
@@ -20,9 +28,6 @@
       }
     }
     .form-container {
-      margin-left: auto;
-      margin-right: auto;
-      width: 40%;
       font-family: $roboto;
       a {
         color: $orange;

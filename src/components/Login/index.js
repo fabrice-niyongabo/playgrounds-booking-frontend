@@ -68,9 +68,6 @@ function Login() {
   };
 
   const updateCart = async (token, role) => {
-    await Axios.post(process.env.REACT_APP_BACKEND_URL + "/cart/giveCart", {
-      token,
-    });
     if (redirect !== "") {
       navigate(-1);
     } else {
@@ -80,54 +77,55 @@ function Login() {
   return (
     <div className="login-main-container">
       <div className="login-contents">
-        <div className="text-center login-header">
-          <h1>Login</h1>
-          <p>
-            Log into your account to be able to make operations on the system
-          </p>
-        </div>
-        <div className="form-container">
-          <form onSubmit={handleSubmit}>
-            <div className="form-group mb-3 mt-4">
-              <span>Email address</span>
-              <input
-                type="email"
-                placeholder="example@gmail.com"
-                className="form-control"
-                name="email"
-                required
-                disabled={isSubmitting}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </div>
-            <div className="form-group mb-3">
-              <span>Password</span>
-              <input
-                type="password"
-                placeholder="***************"
-                className="form-control"
-                required
-                disabled={isSubmitting}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </div>
-            {error !== "" && (
-              <div className="alert alert-danger mb-3">{error}</div>
-            )}
-            <button disabled={isSubmitting} type="submit" className="mb-3">
-              {isSubmitting && <Spinner animation="border" size="sm" />} Login
-            </button>
-          </form>
-          <div className="text-end mb-3">
-            Don't have an account? <Link to="/signup">Register Now</Link>
+        <div className="cont">
+          <div className="text-center login-header">
+            <h1>Login</h1>
+            <p>
+              Log into your account to be able to make operations on the system
+            </p>
           </div>
-          <div className="text-center">
-            <Link to="/">Go back to home page</Link>
+          <div className="form-container">
+            <form onSubmit={handleSubmit}>
+              <div className="form-group mb-3 mt-4">
+                <span>Email address</span>
+                <input
+                  type="email"
+                  placeholder="example@gmail.com"
+                  className="form-control"
+                  name="email"
+                  required
+                  value={email}
+                  disabled={isSubmitting}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </div>
+              <div className="form-group mb-3">
+                <span>Password</span>
+                <input
+                  type="password"
+                  placeholder="***************"
+                  className="form-control"
+                  required
+                  disabled={isSubmitting}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </div>
+              {error !== "" && (
+                <div className="alert alert-danger mb-3">{error}</div>
+              )}
+              <button disabled={isSubmitting} type="submit" className="mb-3">
+                {isSubmitting && <Spinner animation="border" size="sm" />} Login
+              </button>
+            </form>
+            <div className="text-end mb-3">
+              Don't have an account? <Link to="/signup">Register Now</Link>
+            </div>
+            <div className="text-center">
+              <Link to="/">Go back to home page</Link>
+            </div>
           </div>
         </div>
-      </div>
-      <div className="footer">
-        <img src={require("../../assets/wave.png")} alt="" />
       </div>
     </div>
   );

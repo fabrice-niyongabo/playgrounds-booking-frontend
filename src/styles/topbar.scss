@@ -1,0 +1,31 @@
+@import "colors";
+@import "mixins";
+
+.topbar-main-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  width: calc(100vw);
+  padding: 15px 2rem;
+  background: $white 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 12px #00000012;
+  z-index: 1;
+
+  img {
+    width: 60px;
+  }
+
+  .user-profile-container {
+    @include flex-center;
+
+    .profile-image-container {
+      background-color: $darkGray;
+      border-radius: 100%;
+      padding: 5px;
+      @include flex-center;
+      margin-right: 10px;
+    }
+  }
+}

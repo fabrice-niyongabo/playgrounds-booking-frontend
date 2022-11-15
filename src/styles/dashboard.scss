@@ -1,0 +1,149 @@
+// @import "fonts";
+@import "colors";
+@import "mixins";
+
+.contents-main-container {
+  background-color: white;
+  position: absolute;
+  top: 0;
+  padding-top: 4rem;
+  width: calc(100vw - 270px);
+  margin-left: 250px;
+  height: 100%;
+}
+
+.sidebar-container {
+  width: 250px;
+  height: 100vh;
+  padding-top: 4rem;
+  background: #fcf9ff 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 12px $shadowColor;
+  position: fixed;
+  top: 0;
+
+  .create-accounts-container {
+    cursor: pointer;
+    @include flex-space;
+    padding: 1rem 2rem;
+
+    span {
+      text-transform: uppercase;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .create-account {
+      background-color: $orange;
+      padding: 5px;
+      border-radius: 100%;
+      @include flex-center;
+    }
+  }
+
+  .money-account-container {
+    max-height: 190px;
+    overflow-y: auto;
+  }
+
+  .sidebar-items {
+    padding: 0px;
+    margin: 0px;
+
+    li {
+      list-style: none;
+      padding: 0.5rem 0px;
+      padding-left: 2.5rem;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      font-size: 14px;
+      text-transform: capitalize;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      transition: 0.5s;
+      color: $textGray;
+
+      &:hover {
+        background-color: $darkGray;
+        color: $red;
+        border-top-right-radius: 25px;
+        border-bottom-right-radius: 25px;
+        margin-right: 10px;
+        padding-left: 3rem;
+        cursor: pointer;
+      }
+    }
+    li.active {
+      background-color: $darkGray;
+      color: $red;
+      border-top-right-radius: 25px;
+      border-bottom-right-radius: 25px;
+      margin-right: 10px;
+      padding-left: 3rem;
+    }
+  }
+  hr {
+    margin: 2rem 0px;
+  }
+  .menu-container {
+    padding: 0px;
+    margin: 0px;
+
+    li {
+      list-style: none;
+      padding-left: 2rem;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      font-size: 14px;
+      text-transform: capitalize;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: 0.5s;
+      color: $textGray;
+      padding-right: 5px;
+
+      span {
+        margin-left: 5px;
+        width: 100%;
+      }
+
+      &:hover {
+        background-color: $darkGray;
+        color: $red;
+        padding: 0.5rem 0px;
+        padding-right: 5px;
+        border-top-right-radius: 25px;
+        border-bottom-right-radius: 25px;
+        margin-right: 10px;
+        padding-left: 3rem;
+        cursor: pointer;
+      }
+    }
+    li.active {
+      background-color: $darkGray;
+      color: $red;
+      padding: 0.5rem 0px;
+      padding-right: 5px;
+      border-top-right-radius: 25px;
+      border-bottom-right-radius: 25px;
+      margin-right: 10px;
+      padding-left: 3rem;
+    }
+  }
+  .footer {
+    position: absolute;
+    bottom: 0;
+    width: inherit;
+    padding: 1rem 2rem;
+    border-top: 1px solid $darkGray;
+    .footer-contents {
+      cursor: pointer;
+      @include flex-space;
+      span {
+        font-size: 14px;
+        color: $black;
+      }
+    }
+  }
+}

@@ -165,60 +165,6 @@ function SignUp() {
         return { ...prevState, confirmPassword: "" };
       });
     }
-    if (state.createFacility) {
-      if (state.facilityName.trim() === "") {
-        setError((prevState) => {
-          return { ...prevState, facilityName: "This field can not be empty" };
-        });
-        facilityNameRef.current.classList.add("is-invalid");
-        facilityNameRef.current.focus();
-        return;
-      } else {
-        facilityNameRef.current.classList.remove("is-invalid");
-        setError((prevState) => {
-          return { ...prevState, facilityName: "" };
-        });
-      }
-      if (state.averagePrice.trim() === "") {
-        setError((prevState) => {
-          return { ...prevState, averagePrice: "This field can not be empty" };
-        });
-        averagePriceRef.current.classList.add("is-invalid");
-        averagePriceRef.current.focus();
-        return;
-      } else {
-        averagePriceRef.current.classList.remove("is-invalid");
-        setError((prevState) => {
-          return { ...prevState, averagePrice: "" };
-        });
-      }
-      if (state.facilityType.trim() === "") {
-        setError((prevState) => {
-          return { ...prevState, facilityType: "This field can not be empty" };
-        });
-        facilityTypeRef.current.classList.add("is-invalid");
-        facilityTypeRef.current.focus();
-        return;
-      } else {
-        facilityTypeRef.current.classList.remove("is-invalid");
-        setError((prevState) => {
-          return { ...prevState, facilityType: "" };
-        });
-      }
-      if (state.description.trim() === "") {
-        setError((prevState) => {
-          return { ...prevState, description: "This field can not be empty" };
-        });
-        descriptionRef.current.classList.add("is-invalid");
-        descriptionRef.current.focus();
-        return;
-      } else {
-        descriptionRef.current.classList.remove("is-invalid");
-        setError((prevState) => {
-          return { ...prevState, description: "" };
-        });
-      }
-    }
     setIsSubmitting(true);
     setError((prevState) => {
       return {
@@ -258,212 +204,125 @@ function SignUp() {
   return (
     <div className="login-main-container">
       <div className="login-contents">
-        <div className="text-center login-header">
-          <h1>Create account</h1>
-          <p>
-            Hello User, thank you for choosing this journey with us. Lets create
-            account first
-          </p>
-        </div>
-        <div className="form-container">
-          <form onSubmit={handleSubmit}>
-            <div className="form-group mb-3 mt-4">
-              <span>Full Names</span>
-              <input
-                type="text"
-                placeholder="Your names"
-                className="form-control"
-                ref={fullNameRef}
-                value={state.fullName}
-                onChange={(e) => {
-                  setState((prevState) => {
-                    return { ...prevState, fullName: e.target.value };
-                  });
-                }}
-                disabled={isSubmitting}
-              />
-              <span className="error">{error.fullName}</span>
-            </div>
-            <div className="form-group mb-3 mt-4">
-              <span>Phone number</span>
-              <div className="phone-container">
+        <div className="cont">
+          <div className="text-center login-header">
+            <h1>Create account</h1>
+            <p>
+              Hello User, thank you for choosing this journey with us. Lets
+              create account first
+            </p>
+          </div>
+          <div className="form-container">
+            <form onSubmit={handleSubmit}>
+              <div className="form-group mb-3 mt-4">
+                <span>Full Names</span>
                 <input
                   type="text"
+                  placeholder="Your names"
                   className="form-control"
-                  disabled
-                  value="+250"
-                />
-                <input
-                  type="number"
-                  placeholder="7888888"
-                  className="form-control"
-                  ref={phoneRef}
+                  ref={fullNameRef}
+                  value={state.fullName}
                   onChange={(e) => {
                     setState((prevState) => {
-                      return { ...prevState, phone: e.target.value };
+                      return { ...prevState, fullName: e.target.value };
                     });
                   }}
                   disabled={isSubmitting}
                 />
+                <span className="error">{error.fullName}</span>
               </div>
-              <span className="error">{error.phone}</span>
-            </div>
-            <div className="form-group mb-3 mt-4">
-              <span>Email address</span>
-              <input
-                type="email"
-                placeholder="example@gmail.com"
-                className="form-control"
-                ref={emailRef}
-                onChange={(e) => {
-                  setState((prevState) => {
-                    return { ...prevState, email: e.target.value };
-                  });
-                }}
-                disabled={isSubmitting}
-              />
-              <span className="error">{error.email}</span>
-            </div>
-            <div className="form-group mb-3">
-              <span>Password</span>
-              <input
-                type="password"
-                placeholder="***************"
-                className="form-control"
-                ref={passwordRef}
-                onChange={(e) => {
-                  setState((prevState) => {
-                    return { ...prevState, password: e.target.value };
-                  });
-                }}
-                disabled={isSubmitting}
-              />
-              <span className="error">{error.password}</span>
-            </div>
-            <div className="form-group mb-3">
-              <span>Confirm password</span>
-              <input
-                type="password"
-                placeholder="***************"
-                className="form-control"
-                ref={confirmPasswordRef}
-                onChange={(e) => {
-                  setState((prevState) => {
-                    return { ...prevState, confirmPassword: e.target.value };
-                  });
-                }}
-                disabled={isSubmitting}
-              />
-              <span className="error">{error.confirmPassword}</span>
-            </div>
-            <div className="form-group mb-3">
-              <input
-                type="checkbox"
-                disabled={isSubmitting}
-                onChange={(e) =>
-                  setState((prevState) => {
-                    return {
-                      ...prevState,
-                      createFacility: !prevState.createFacility,
-                    };
-                  })
-                }
-              />
-              &nbsp;&nbsp;<small>Create facility</small>
-            </div>
-            {state.createFacility && (
-              <>
-                <div className="form-group mb-3">
-                  <span>Facility Name</span>
+              <div className="form-group mb-3 mt-4">
+                <span>Phone number</span>
+                <div className="phone-container">
                   <input
                     type="text"
-                    placeholder="Enter facility name"
                     className="form-control"
-                    ref={facilityNameRef}
-                    onChange={(e) => {
-                      setState((prevState) => {
-                        return { ...prevState, facilityName: e.target.value };
-                      });
-                    }}
-                    disabled={isSubmitting}
+                    disabled
+                    value="+250"
                   />
-                  <span className="error">{error.facilityName}</span>
-                </div>
-                <div className="form-group mb-3">
-                  <span>Average Price</span>
                   <input
                     type="number"
-                    placeholder="Average price"
+                    placeholder="7888888"
                     className="form-control"
-                    ref={averagePriceRef}
+                    ref={phoneRef}
                     onChange={(e) => {
                       setState((prevState) => {
-                        return { ...prevState, averagePrice: e.target.value };
+                        return { ...prevState, phone: e.target.value };
                       });
                     }}
                     disabled={isSubmitting}
                   />
-                  <span className="error">{error.averagePrice}</span>
                 </div>
-                <div className="form-group mb-3">
-                  <span>Facility Type</span>
-                  <select
-                    className="form-select"
-                    ref={facilityTypeRef}
-                    onChange={(e) => {
-                      setState((prevState) => {
-                        return { ...prevState, facilityType: e.target.value };
-                      });
-                    }}
-                    disabled={isSubmitting}
-                  >
-                    <option value="">choose</option>
-                    <option value="hotel">Hotel</option>
-                    <option value="restaurant">Restaurant</option>
-                    <option value="coffeeshop">Coffee Shop</option>
-                  </select>
-                  <span className="error">{error.facilityType}</span>
-                </div>
-                <div className="form-group mb-3">
-                  <span>Description</span>
-                  <textarea
-                    type="number"
-                    placeholder="Describe your facility"
-                    className="form-control"
-                    ref={descriptionRef}
-                    onChange={(e) => {
-                      setState((prevState) => {
-                        return { ...prevState, description: e.target.value };
-                      });
-                    }}
-                    disabled={isSubmitting}
-                  />
-                  <span className="error">{error.description}</span>
-                </div>
-              </>
-            )}
-            {error.submit !== "" && (
-              <div className="alert alert-danger mb-3">{error.submit}</div>
-            )}
-            <button disabled={isSubmitting} className="mb-3">
-              {isSubmitting && (
-                <span>
-                  <Spinner animation="border" size="sm" />
-                </span>
-              )}{" "}
-              SignUp
-            </button>
-          </form>
-          <div className="text-end mb-3">
-            Already have an account? <Link to="/login">Login Now</Link>
-          </div>
-          <div className="text-center">
-            <Link to="/">Go back to home page</Link>
+                <span className="error">{error.phone}</span>
+              </div>
+              <div className="form-group mb-3 mt-4">
+                <span>Email address</span>
+                <input
+                  type="email"
+                  placeholder="example@gmail.com"
+                  className="form-control"
+                  ref={emailRef}
+                  onChange={(e) => {
+                    setState((prevState) => {
+                      return { ...prevState, email: e.target.value };
+                    });
+                  }}
+                  disabled={isSubmitting}
+                />
+                <span className="error">{error.email}</span>
+              </div>
+              <div className="form-group mb-3">
+                <span>Password</span>
+                <input
+                  type="password"
+                  placeholder="***************"
+                  className="form-control"
+                  ref={passwordRef}
+                  onChange={(e) => {
+                    setState((prevState) => {
+                      return { ...prevState, password: e.target.value };
+                    });
+                  }}
+                  disabled={isSubmitting}
+                />
+                <span className="error">{error.password}</span>
+              </div>
+              <div className="form-group mb-3">
+                <span>Confirm password</span>
+                <input
+                  type="password"
+                  placeholder="***************"
+                  className="form-control"
+                  ref={confirmPasswordRef}
+                  onChange={(e) => {
+                    setState((prevState) => {
+                      return { ...prevState, confirmPassword: e.target.value };
+                    });
+                  }}
+                  disabled={isSubmitting}
+                />
+                <span className="error">{error.confirmPassword}</span>
+              </div>
+              {error.submit !== "" && (
+                <div className="alert alert-danger mb-3">{error.submit}</div>
+              )}
+              <button disabled={isSubmitting} className="mb-3">
+                {isSubmitting && (
+                  <span>
+                    <Spinner animation="border" size="sm" />
+                  </span>
+                )}{" "}
+                SignUp
+              </button>
+            </form>
+            <div className="text-end mb-3">
+              Already have an account? <Link to="/login">Login Now</Link>
+            </div>
+            <div className="text-center">
+              <Link to="/">Go back to home page</Link>
+            </div>
           </div>
         </div>
-      </div>
-      <div className="footer">
-        <img src={require("../../assets/wave.png")} alt="" />
       </div>
     </div>
   );
