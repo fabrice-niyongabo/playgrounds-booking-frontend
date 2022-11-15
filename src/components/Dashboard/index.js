@@ -5,20 +5,24 @@ import Contents from "./contents";
 import Sidebar from "./sidebar";
 import Topbar from "./topbar";
 import "../../styles/dashboard.scss";
+import FullPageLoader from "../full-page-loader";
 function Dashboard() {
   const navigate = useNavigate();
-  const { role } = useSelector((state) => state.user);
+  const { showLoader } = useSelector((state) => state.fullPageLoader);
   // if (role !== "admin") {
   //   navigate("/");
   //   return null;
   // }
 
   return (
-    <div style={{ position: "relative", height: "100vh" }}>
-      <Topbar />
-      <Sidebar />
-      <Contents />
-    </div>
+    <>
+      <div style={{ position: "relative", height: "100vh" }}>
+        <Topbar />
+        <Sidebar />
+        <Contents />
+      </div>
+      <FullPageLoader isLoading={showLoader} />
+    </>
   );
 }
 

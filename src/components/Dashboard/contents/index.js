@@ -1,14 +1,19 @@
 import { makeStyles } from "@mui/styles";
 import React from "react";
 import { useSelector } from "react-redux";
+import { adminSidebarTabs } from "../../../constants";
 
 function Contents() {
   const classes = useStyles();
-  const { activeTab, tabs } = useSelector((state) => state.tabs);
-  console.log(tabs);
+  const { activeTab } = useSelector((state) => state.tabs);
+
+  console.log(activeTab);
   return (
     <div className={classes.mainContainer}>
-      {tabs.filter((item) => item.tabName === activeTab)[0]?.component}
+      {
+        adminSidebarTabs.filter((item) => item.tabName === activeTab)[0]
+          ?.component
+      }
     </div>
   );
 }

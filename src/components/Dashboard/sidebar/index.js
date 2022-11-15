@@ -1,23 +1,24 @@
 import React from "react";
-import { AiFillDownSquare, AiFillFund } from "react-icons/ai";
-import { FiSettings, FiLogOut, FiPlus } from "react-icons/fi";
-import { useSelector } from "react-redux";
+import { FiLogOut } from "react-icons/fi";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setAcativeTab } from "../../../actions/tabs";
+import { adminSidebarTabs } from "../../../constants";
 
 function Sidebar() {
-  const { tabs, activeTab } = useSelector((state) => state.tabs);
+  const { activeTab } = useSelector((state) => state.tabs);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   return (
     <>
       <div className="sidebar-container">
         <ul className="menu-container" style={{ marginTop: "1.5rem" }}>
-          {tabs.map((item, positon) => (
+          {adminSidebarTabs.map((item, positon) => (
             <li
               key={positon}
               className={activeTab === item.tabName ? "active" : ""}
               onClick={() => {
-                setAcativeTab(item.tabName);
+                dispatch(setAcativeTab(item.tabName));
               }}
             >
               {item.tabIcon}
@@ -32,10 +33,6 @@ function Sidebar() {
           </div>
         </div>
       </div>
-      {/* <AddSourceOfMoney
-        showSourceOfMoneyModal={showSourceOfMoneyModal}
-        handleCloseSourceOfMoneyModal={handleCloseSourceOfMoneyModal}
-      /> */}
     </>
   );
 }

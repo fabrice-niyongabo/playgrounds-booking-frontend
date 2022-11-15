@@ -1,8 +1,8 @@
 import React from "react";
 import { Spinner } from "react-bootstrap";
 
-function Loader({ showLoader }) {
-  if (showLoader) {
+function FullPageLoader({ isLoading }) {
+  if (isLoading) {
     return (
       <div
         style={{
@@ -34,4 +34,4 @@ function Loader({ showLoader }) {
   }
 }
 
-export default Loader;
+export default FullPageLoader;

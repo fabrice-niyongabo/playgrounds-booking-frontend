@@ -5,11 +5,9 @@ import { AiFillEdit } from "react-icons/ai";
 import "../../styles/profile.scss";
 import Axios from "axios";
 import { errorHandler } from "../../helpers";
-import Loader from "../Dashboard/modals/Loader";
 import ProfileDetails from "./ProfileDetails";
 import { useParams } from "react-router-dom";
 import OrderDetails from "./OrderDeatails";
-import Refund from "../Dashboard/modals/Refund";
 function Profile() {
   const params = useParams();
   const { fullName, token } = useSelector((state) => state.user);
@@ -160,7 +158,6 @@ function Profile() {
           </table>
         </div>
       </div>
-      <Loader showLoader={showLoader} />
       <ProfileDetails
         setShowLoader={setShowLoader}
         setShowModal={setShowModal}
