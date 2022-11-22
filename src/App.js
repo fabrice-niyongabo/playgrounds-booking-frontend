@@ -9,6 +9,7 @@ import Logout from "./components/Logout";
 import { ToastContainer } from "react-toastify";
 import Profile from "./components/Profile";
 import Dashboard from "./components/Dashboard";
+import Playground from "./components/playground";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route exact path="/" element={<Home />} />
+          <Route exact path="/:id" element={<Playground />} />
           <Route exact path="/logout" element={<Logout />} />
           <Route exact path="/login" element={<Login />} />
           <Route

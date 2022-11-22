@@ -1,9 +1,9 @@
 import React from "react";
 import { Skeleton } from "@mui/material";
 
-function FacilitySkeleton() {
+function Loader() {
   return (
-    <div className="row">
+    <div className="row w-100">
       <div className="col-md-4">
         <Skeleton
           variant="rectangular"
@@ -11,14 +11,6 @@ function FacilitySkeleton() {
           height={150}
           className="my-2"
           style={{ borderRadius: 20 }}
-          animation="wave"
-        />
-        <Skeleton
-          variant="rectangular"
-          width="100%"
-          height={20}
-          className="my-3"
-          style={{ borderRadius: 5 }}
           animation="wave"
         />
       </div>
@@ -31,12 +23,14 @@ function FacilitySkeleton() {
           style={{ borderRadius: 20 }}
           animation="wave"
         />
+      </div>
+      <div className="col-md-4">
         <Skeleton
           variant="rectangular"
           width="100%"
-          height={20}
-          className="my-3"
-          style={{ borderRadius: 5 }}
+          height={150}
+          className="my-2"
+          style={{ borderRadius: 20 }}
           animation="wave"
         />
       </div>
@@ -49,14 +43,6 @@ function FacilitySkeleton() {
           style={{ borderRadius: 20 }}
           animation="wave"
         />
-        <Skeleton
-          variant="rectangular"
-          width="100%"
-          height={20}
-          className="my-3"
-          style={{ borderRadius: 5 }}
-          animation="wave"
-        />
       </div>
       <div className="col-md-4">
         <Skeleton
@@ -67,14 +53,6 @@ function FacilitySkeleton() {
           style={{ borderRadius: 20 }}
           animation="wave"
         />
-        <Skeleton
-          variant="rectangular"
-          width="100%"
-          height={20}
-          className="my-3"
-          style={{ borderRadius: 5 }}
-          animation="wave"
-        />
       </div>
       <div className="col-md-4">
         <Skeleton
@@ -83,32 +61,6 @@ function FacilitySkeleton() {
           height={150}
           className="my-2"
           style={{ borderRadius: 20 }}
-          animation="wave"
-        />
-        <Skeleton
-          variant="rectangular"
-          width="100%"
-          height={20}
-          className="my-3"
-          style={{ borderRadius: 5 }}
-          animation="wave"
-        />
-      </div>
-      <div className="col-md-4">
-        <Skeleton
-          variant="rectangular"
-          width="100%"
-          height={150}
-          className="my-2"
-          style={{ borderRadius: 20 }}
-          animation="wave"
-        />
-        <Skeleton
-          variant="rectangular"
-          width="100%"
-          height={20}
-          className="my-3"
-          style={{ borderRadius: 5 }}
           animation="wave"
         />
       </div>
@@ -116,4 +68,4 @@ function FacilitySkeleton() {
   );
 }
 
-export default FacilitySkeleton;
+export default Loader;

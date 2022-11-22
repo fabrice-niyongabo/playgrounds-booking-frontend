@@ -191,7 +191,7 @@ function ProfileDetails({ showModal, setShowModal, setShowLoader }) {
               <button
                 type="button"
                 onClick={() => handleSubmit2()}
-                className="btn bg-orange text-white"
+                className="btn bg-primary text-white"
               >
                 Submit
               </button>
@@ -200,11 +200,11 @@ function ProfileDetails({ showModal, setShowModal, setShowLoader }) {
                 <button
                   type="button"
                   onClick={() => setEditPassword(true)}
-                  className="btn bg-orange text-white"
+                  className="btn bg-primary text-white"
                 >
                   Change Password
                 </button>
-                <button type="submit" className="btn bg-orange text-white">
+                <button type="submit" className="btn bg-info text-white">
                   Save changes
                 </button>
               </>
