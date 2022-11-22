@@ -16,3 +16,8 @@ export const adminSidebarTabs = [
     component: <Playgrounds />,
   },
 ];
+
+export const app = {
+  backendUrl: process.env.REACT_APP_BACKEND_URL,
+  fileBaseUrl: process.env.REACT_APP_BACKEND_FILE_URL,
+};

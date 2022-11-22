@@ -1,24 +1,74 @@
 import React, { useState } from "react";
-import { errorHandler, uploadImage } from "../../../../helpers";
+import { useDispatch, useSelector } from "react-redux";
+import { setShowFullPageLoader } from "../../../../actions/fullPageLoader";
+import { errorHandler, toastMessage, uploadImage } from "../../../../helpers";
+import Axios from "axios";
+import { app } from "../../../../constants";
+import { useEffect } from "react";
+import ImageLoader from "../../../image-loader";
+import PlaygroundItem from "./playgroundItem";
+
+const initialState = {
+  title: "",
+  summary: "",
+  description: "",
+  image: "",
+  price: 10000,
+};
 
 function Playgrounds() {
-  const [state, setState] = useState({
-    title: "",
-    summary: "",
-    description: "",
-    image: "",
-  });
+  const dispatch = useDispatch();
+  const { token } = useSelector((state) => state.user);
+  const [isLoading, setIsLoading] = useState(false);
+  const [playgrounds, setPlaygrounds] = useState([]);
+  const [state, setState] = useState(initialState);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    dispatch(setShowFullPageLoader(true));
     try {
       const rsp = await uploadImage(state.image);
-      console.log(rsp);
+      const { fileName } = rsp.data;
+      Axios.post(app.backendUrl + "/playgrounds/", {
+        ...state,
+        image: fileName,
+        token,
+      })
+        .then((res) => {
+          dispatch(setShowFullPageLoader(false));
+          toastMessage("success", res.data.msg);
+          fetchPlaygrounds();
+        })
+        .catch((error) => {
+          dispatch(setShowFullPageLoader(false));
+          errorHandler(error);
+          setState(initialState);
+        });
     } catch (error) {
       errorHandler(error);
+      dispatch(setShowFullPageLoader(false));
     }
   };
+
+  const fetchPlaygrounds = () => {
+    setIsLoading(true);
+    Axios.get(app.backendUrl + "/playgrounds/")
+      .then((res) => {
+        setTimeout(() => {
+          setIsLoading(false);
+          setPlaygrounds(res.data.playgrounds);
+        }, 1000);
+      })
+      .catch((error) => {
+        setIsLoading(false);
+        errorHandler(error);
+      });
+  };
+
+  useEffect(() => {
+    fetchPlaygrounds();
+  }, []);
+
   return (
     <>
       <div className="row">
@@ -26,6 +76,21 @@ function Playgrounds() {
           <div className="card">
             <div className="card-body">
               <h2>Playgrounds</h2>
+
+              {isLoading ? (
+                <ImageLoader />
+              ) : (
+                <div>
+                  {playgrounds.map((item, i) => (
+                    <PlaygroundItem
+                      playground={item}
+                      key={i}
+                      token={token}
+                      fetchPlaygrounds={fetchPlaygrounds}
+                    />
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -51,6 +116,7 @@ function Playgrounds() {
                     className="form-control"
                     placeholder="Playground's short summary"
                     value={state.summary}
+                    maxLength={100}
                     required
                     onChange={(e) =>
                       setState({ ...state, summary: e.target.value })
@@ -67,6 +133,18 @@ function Playgrounds() {
                       setState({ ...state, description: e.target.value })
                     }
                   ></textarea>
+                </div>
+                <div className="form-group mb-3">
+                  <input
+                    type="number"
+                    className="form-control"
+                    placeholder="Price per hour (RWF)"
+                    required
+                    value={state.price}
+                    onChange={(t) =>
+                      setState({ ...state, price: t.target.value })
+                    }
+                  />
                 </div>
                 <div className="form-group mb-3">
                   <label>Playground image</label>

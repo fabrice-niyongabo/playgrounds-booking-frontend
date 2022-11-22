@@ -9,10 +9,11 @@ import FullPageLoader from "../full-page-loader";
 function Dashboard() {
   const navigate = useNavigate();
   const { showLoader } = useSelector((state) => state.fullPageLoader);
-  // if (role !== "admin") {
-  //   navigate("/");
-  //   return null;
-  // }
+  const { role } = useSelector((state) => state.user);
+  if (role !== "admin") {
+    navigate("/");
+    return null;
+  }
 
   return (
     <>

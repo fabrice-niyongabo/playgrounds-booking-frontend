@@ -6,8 +6,6 @@ import { adminSidebarTabs } from "../../../constants";
 function Contents() {
   const classes = useStyles();
   const { activeTab } = useSelector((state) => state.tabs);
-
-  console.log(activeTab);
   return (
     <div className={classes.mainContainer}>
       {

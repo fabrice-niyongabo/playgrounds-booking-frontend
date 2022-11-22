@@ -147,3 +147,7 @@
     }
   }
 }
+
+.flex-space {
+  @include flex-space;
+}

@@ -23,7 +23,6 @@ export const randomNumber = () => {
 };
 
 export const uploadImage = (file) => {
-  console.log(file);
   return new Promise((resolve, reject) => {
     let formData = new FormData();
     formData.append("file", file, file.name);
@@ -57,8 +56,10 @@ export const toastMessage = (type, message) => {
 export const errorHandler = (error) => {
   if (error?.response?.data?.msg) {
     toastMessage("error", error.response.data.msg);
-  } else {
+  } else if (error.message) {
     toastMessage("error", error.message);
+  } else {
+    toastMessage("error", JSON.stringify(error));
   }
   handleAuthError(error);
 };
