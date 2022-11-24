@@ -11,7 +11,7 @@ function FullPageLoader({ isLoading }) {
           width: "100%",
           height: "100%",
           backgroundColor: "rgba(0,0,0,0.6)",
-          zIndex: 2000000000,
+          zIndex: "20000000 !important",
         }}
       >
         <div

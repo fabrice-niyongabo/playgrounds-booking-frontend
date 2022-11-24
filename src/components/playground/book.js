@@ -4,34 +4,49 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import { FiDelete } from "react-icons/fi";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { setShowFullPageLoader } from "../../actions/fullPageLoader";
 import { app } from "../../constants";
 import { errorHandler, toastMessage } from "../../helpers";
 
-function Book({ showModal, setShowModal, item, token }) {
+function Book({ showModal, setShowModal, item }) {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { token } = useSelector((state) => state.user);
   const [hours, setHours] = useState([]);
   const [selectedHours, setSelectedHours] = useState([]);
+  const [organisationName, setOrganisationName] = useState("");
+  const [bookedDate, setBookedDate] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const handleSubmit = (e) => {
     e.preventDefault();
-
     dispatch(setShowFullPageLoader(true));
+    setIsLoading(true);
     axios
-      .post(app.backendUrl + "/playgrounds/hours/", {
+      .post(app.backendUrl + "/booking/", {
         id: item._id,
+        organisationName,
+        selectedHours,
+        bookedDate,
+        phoneNumber: "25" + phoneNumber,
+        price: item.price,
         token,
       })
       .then((res) => {
         dispatch(setShowFullPageLoader(false));
         toastMessage("success", res.data.msg);
+        setIsLoading(false);
+        navigate("/profile");
       })
       .catch((error) => {
         errorHandler(error);
+        setIsLoading(false);
         dispatch(setShowFullPageLoader(false));
       });
   };
+
   const fetchHours = () => {
     dispatch(setShowFullPageLoader(true));
     axios
@@ -44,6 +59,7 @@ function Book({ showModal, setShowModal, item, token }) {
       })
       .catch((error) => {
         dispatch(setShowFullPageLoader(false));
+
         errorHandler(error);
       });
   };
@@ -82,6 +98,8 @@ function Book({ showModal, setShowModal, item, token }) {
               placeholder="Enter your organisation name"
               className="form-control"
               required
+              onChange={(e) => setOrganisationName(e.target.value)}
+              disabled={isLoading}
             />
           </div>
           <div className="form-group mb-3">
@@ -91,6 +109,8 @@ function Book({ showModal, setShowModal, item, token }) {
               placeholder="Enter your organisation name"
               className="form-control"
               required
+              onChange={(e) => setBookedDate(e.target.value)}
+              disabled={isLoading}
             />
           </div>
           <div className="form-group mb-3 border p-2">
@@ -130,6 +150,8 @@ function Book({ showModal, setShowModal, item, token }) {
               placeholder="07............................................."
               className="form-control"
               required
+              onChange={(e) => setPhoneNumber(e.target.value)}
+              disabled={isLoading}
             />
           </div>
           <div className="form-group mb-3">
@@ -138,7 +160,7 @@ function Book({ showModal, setShowModal, item, token }) {
               {item.price * selectedHours.length} RWF
             </b>
           </div>
-          <button type="submit" class="btn btn-primary">
+          <button type="submit" class="btn btn-primary" disabled={isLoading}>
             Submit
           </button>
         </form>
