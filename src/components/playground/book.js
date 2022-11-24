@@ -2,7 +2,7 @@ import axios from "axios";
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
-import { Button, Modal } from "react-bootstrap";
+import { Button, Modal, Spinner } from "react-bootstrap";
 import { FiDelete } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -161,7 +161,8 @@ function Book({ showModal, setShowModal, item }) {
             </b>
           </div>
           <button type="submit" class="btn btn-primary" disabled={isLoading}>
-            Submit
+            {isLoading && <Spinner animation="border" size="sm" />} Submit
+            request
           </button>
         </form>
       </Modal.Body>

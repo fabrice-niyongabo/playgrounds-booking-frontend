@@ -4,63 +4,66 @@ import Header from "../Header";
 import { AiFillEdit } from "react-icons/ai";
 import "../../styles/profile.scss";
 import Axios from "axios";
-import { errorHandler } from "../../helpers";
+import { errorHandler, toastMessage } from "../../helpers";
 import ProfileDetails from "./ProfileDetails";
 import { useParams } from "react-router-dom";
-import OrderDetails from "./OrderDeatails";
+import { app } from "../../constants";
+import ImageLoader from "../image-loader";
+import TransactionDetails from "./transactionDetails";
 function Profile() {
   const params = useParams();
   const { fullName, token } = useSelector((state) => state.user);
-  const [activeTab, setActiveTab] = useState("pendingOrders");
+  const [activeTab, setActiveTab] = useState("PENDING");
   const [results, setResults] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
   const [showLoader, setShowLoader] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [showOrderDetailsModal, setShowOrderDetailsModal] = useState(false);
-  const [showRefund, setShowRefund] = useState(false);
-  const [orderId, setOrderId] = useState(null);
-  const [refundOrder, setRefundOrder] = useState(null);
-  useEffect(() => {
-    fetchData();
-  }, [activeTab]);
-  useEffect(() => {
-    if (
-      params?.tab === "pendingOrders" ||
-      params?.tab === "failedOrders" ||
-      params?.tab === "completedOrders" ||
-      params?.tab === "pendingBookings" ||
-      params?.tab === "failedBookings" ||
-      params?.tab === "completedBookings"
-    ) {
-      setActiveTab(params.tab);
-    }
-  }, []);
+  const [showModal2, setShowModal2] = useState(false);
+  const [transactions, setTransactions] = useState([]);
+  const [selectedTransaction, setSelectedTransaction] = useState({});
+
   const fetchData = () => {
     setIsLoading(true);
-    setErrorMessage("");
-    Axios.get(
-      process.env.REACT_APP_BACKEND_URL +
-        "/profile/find/" +
-        activeTab +
-        "?token=" +
-        token
-    )
+    Axios.get(app.backendUrl + "/booking/" + "?token=" + token)
       .then((res) => {
-        console.log(res.data);
+        console.log(res.data.transactions);
         setIsLoading(false);
-        setResults(res.data.result);
+        setTransactions(res.data.transactions);
+        toastMessage("success", res.data.msg);
       })
       .catch((error) => {
         setIsLoading(false);
         errorHandler(error);
-        if (error?.response?.data?.msg) {
-          setErrorMessage(error.response.data.msg);
-        } else {
-          setErrorMessage(error.message);
-        }
       });
   };
+
+  const fetchData2 = () => {
+    Axios.get(app.backendUrl + "/booking/" + "?token=" + token)
+      .then((res) => {
+        setTransactions(res.data.transactions);
+      })
+      .catch((error) => {
+        errorHandler(error);
+      });
+  };
+
+  let interval = null;
+  useEffect(() => {
+    interval = setInterval(() => {
+      if (transactions.length > 0) {
+        fetchData2();
+      }
+    }, 7000);
+    return () => {
+      clearInterval(interval);
+    };
+  }, [activeTab]);
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <>
       <Header />
@@ -86,82 +89,109 @@ function Profile() {
         <div className="my-4">
           <table className="w-100">
             <tr>
-              <td colSpan={2} className="bg-light pt-2">
-                <h4 className="text-center">Orders</h4>
-              </td>
-              <td colSpan={2} className="bg-light-orange pt-2">
-                <h4 className="text-center">Booking</h4>
+              <td colSpan={3} className="bg-light pt-2">
+                <h4 className="text-center">Transactions</h4>
               </td>
             </tr>
             <tr>
-              {/* <td
-                className={
-                  activeTab === "pendingOrders"
-                    ? "tab p-2 text-center bg-light active"
-                    : "tab p-2 text-center bg-light"
-                }
-                onClick={() => setActiveTab("pendingOrders")}
-              >
-                Pending
-              </td> */}
               <td
                 className={
-                  activeTab === "failedOrders"
+                  activeTab === "PENDING"
                     ? "tab p-2 text-center bg-light active"
                     : "tab p-2 text-center bg-light"
                 }
-                onClick={() => setActiveTab("failedOrders")}
+                onClick={() => setActiveTab("PENDING")}
               >
-                Failed
+                Pending (
+                {
+                  transactions.filter((item) => item.status === "PENDING")
+                    .length
+                }
+                )
               </td>
               <td
                 className={
-                  activeTab === "completedOrders"
+                  activeTab === "FAILED"
                     ? "tab p-2 text-center bg-light active"
                     : "tab p-2 text-center bg-light"
                 }
-                onClick={() => setActiveTab("completedOrders")}
+                onClick={() => setActiveTab("FAILED")}
               >
-                Completed
-              </td>
-              {/* <td
-                className={
-                  activeTab === "pendingBookings"
-                    ? "tab p-2 text-center bg-light active"
-                    : "tab p-2 text-center bg-light"
-                }
-                onClick={() => setActiveTab("pendingBookings")}
-              >
-                Pending
-              </td> */}
-              <td
-                className={
-                  activeTab === "failedBookings"
-                    ? "tab p-2 text-center bg-light active"
-                    : "tab p-2 text-center bg-light"
-                }
-                onClick={() => setActiveTab("failedBookings")}
-              >
-                Failed
+                Failed (
+                {transactions.filter((item) => item.status === "FAILED").length}
+                )
               </td>
               <td
                 className={
-                  activeTab === "completedBookings"
+                  activeTab === "SUCCESS"
                     ? "tab p-2 text-center bg-light active"
                     : "tab p-2 text-center bg-light"
                 }
-                onClick={() => setActiveTab("completedBookings")}
+                onClick={() => setActiveTab("SUCCESS")}
               >
-                Completed
+                Successfull (
+                {
+                  transactions.filter((item) => item.status === "SUCCESS")
+                    .length
+                }
+                )
               </td>
             </tr>
           </table>
+          <div>
+            {isLoading ? (
+              <ImageLoader />
+            ) : (
+              <table className="table table-bordered">
+                <thead>
+                  <th>#</th>
+                  <th>Amount</th>
+                  <th>Playground</th>
+                  <th>Price/hr</th>
+                  <th>Booked Hours</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </thead>
+                <tbody>
+                  {transactions
+                    .filter((item) => item.status === activeTab)
+                    .map((item) => (
+                      <tr>
+                        <td>{item.randomTransactionId}</td>
+                        <td>{item.amountPaid} RWF</td>
+                        <td>{item.playground.title}</td>
+                        <td>{item.playground.price} RWF</td>
+                        <td>{item.bookedHours.length}</td>
+                        <td>{item.status}</td>
+                        <td>{new Date(item.createdAt).toLocaleString()}</td>
+                        <td>
+                          <button
+                            className="btn btn-info"
+                            onClick={() => {
+                              setSelectedTransaction(item);
+                              setShowModal2(true);
+                            }}
+                          >
+                            More details
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                </tbody>
+              </table>
+            )}
+          </div>
         </div>
       </div>
       <ProfileDetails
         setShowLoader={setShowLoader}
         setShowModal={setShowModal}
         showModal={showModal}
+      />
+      <TransactionDetails
+        showModal={showModal2}
+        setShowModal={setShowModal2}
+        transaction={selectedTransaction}
       />
     </>
   );

@@ -38,11 +38,11 @@ function Playgrounds() {
           dispatch(setShowFullPageLoader(false));
           toastMessage("success", res.data.msg);
           fetchPlaygrounds();
+          setState(initialState);
         })
         .catch((error) => {
           dispatch(setShowFullPageLoader(false));
           errorHandler(error);
-          setState(initialState);
         });
     } catch (error) {
       errorHandler(error);

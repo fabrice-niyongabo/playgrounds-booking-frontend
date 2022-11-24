@@ -10,6 +10,7 @@ import { ToastContainer } from "react-toastify";
 import Profile from "./components/Profile";
 import Dashboard from "./components/Dashboard";
 import Playground from "./components/playground";
+import Print from "./components/print";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Routes>
           <Route exact path="/" element={<Home />} />
           <Route exact path="/:id" element={<Playground />} />
+          <Route exact path="/print/:id" element={<Print />} />
           <Route exact path="/logout" element={<Logout />} />
           <Route exact path="/login" element={<Login />} />
           <Route
