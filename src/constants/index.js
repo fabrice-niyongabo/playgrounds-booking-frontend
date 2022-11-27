@@ -1,7 +1,8 @@
 import { GoDashboard } from "react-icons/go";
-import { GrPlan } from "react-icons/gr";
+import { GrPlan, GrTransaction } from "react-icons/gr";
 import Dashboard from "../components/Dashboard/contents/dashboard";
 import Playgrounds from "../components/Dashboard/contents/playgrounds";
+import Transactions from "../components/Dashboard/contents/transactions";
 export const adminSidebarTabs = [
   {
     tabName: "dashboard",
@@ -14,6 +15,12 @@ export const adminSidebarTabs = [
     tabLabel: "Playgrounds",
     tabIcon: <GrPlan size={20} />,
     component: <Playgrounds />,
+  },
+  {
+    tabName: "transactions",
+    tabLabel: "Transactions",
+    tabIcon: <GrTransaction size={20} />,
+    component: <Transactions />,
   },
 ];
 

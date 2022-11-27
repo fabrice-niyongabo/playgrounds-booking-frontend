@@ -52,13 +52,22 @@ function TransactionDetails({ showModal, setShowModal, transaction }) {
               <p className="m-0">
                 <b>MOMO Transaction ID: </b> {transaction?.spTransactionId}
               </p>
-              <p className="m-0 bg-info">
+              <p className="bg-info">
                 <b>Payment Status: </b> {transaction.status}
+              </p>
+              <p className="m-0">
+                <b>Client Name: </b>{" "}
+                {transaction?.client?.fullName}
+              </p>
+              <p className="m-0">
+                <b>Client Email: </b>{" "}
+                {transaction?.client?.email}
               </p>
               <p>
                 <b>Transaction Date: </b>{" "}
                 {new Date(transaction.createdAt).toLocaleDateString()}
               </p>
+              
               <Link to={`/print/${transaction._id}`} target="_blank">
                 <button className="btn btn-primary">Print Ticket</button>
               </Link>

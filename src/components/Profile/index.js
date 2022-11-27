@@ -150,6 +150,7 @@ function Profile() {
                   <th>Price/hr</th>
                   <th>Booked Hours</th>
                   <th>Status</th>
+                  <th>Date</th>
                   <th>Action</th>
                 </thead>
                 <tbody>

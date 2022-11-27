@@ -11,7 +11,8 @@ function Dashboard() {
   const { showLoader } = useSelector((state) => state.fullPageLoader);
   const { role } = useSelector((state) => state.user);
   if (role !== "admin") {
-    navigate("/");
+    // navigate("/");
+    window.location = "/profile"
     return null;
   }
 

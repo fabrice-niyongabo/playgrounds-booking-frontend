@@ -31,7 +31,7 @@ function Login() {
         setRedirect(rdr);
       }
     } else {
-      navigate("/");
+      navigate("/profile");
     }
   }, []);
 

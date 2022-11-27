@@ -8,7 +8,7 @@ function Logout() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(resetUser());
-    navigate("/");
+    navigate("/login");
   }, []);
   return null;
 }
