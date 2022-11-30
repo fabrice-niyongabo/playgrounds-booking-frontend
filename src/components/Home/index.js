@@ -62,8 +62,8 @@ function Home() {
             <div className="col-md-6">
               <img
                 style={{ width: "100%" }}
-                // src={require("../../assets/landing.png")}
-                src={require("../../assets/logo.png")}
+                src={require("../../assets/landing.png")}
+                // src={require("../../assets/logo.png")}
                 alt="features"
               />
             </div>

@@ -11,6 +11,7 @@ import Profile from "./components/Profile";
 import Dashboard from "./components/Dashboard";
 import Playground from "./components/playground";
 import Print from "./components/print";
+import Printer from "./components/Dashboard/printer";
 
 function App() {
   return (
@@ -20,6 +21,8 @@ function App() {
           <Route exact path="/" element={<Home />} />
           <Route exact path="/:id" element={<Playground />} />
           <Route exact path="/print/:id" element={<Print />} />
+          <Route exact path="/printer/:keyword" element={<Printer />} />
+          <Route exact path="/printer/" element={<Printer />} />
           <Route exact path="/logout" element={<Logout />} />
           <Route exact path="/login" element={<Login />} />
           <Route

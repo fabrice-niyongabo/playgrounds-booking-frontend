@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from 'react'
 import TransactionDetails from '../../../Profile/transactionDetails';
 import Axios from "axios"
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { app } from '../../../../constants';
 import { errorHandler, toastMessage } from '../../../../helpers';
@@ -9,6 +9,7 @@ import ImageLoader from '../../../image-loader';
 
 function Transactions() { 
   const {  token } = useSelector((state) => state.user);
+  const navigate = useNavigate()
   const [activeTab, setActiveTab] = useState("PENDING"); 
   const [isLoading, setIsLoading] = useState(true); 
   const [showModal2, setShowModal2] = useState(false);
@@ -72,18 +73,28 @@ function Transactions() {
   }
  },[keyword])
 
+
+ const calculateTotal = () => {
+     let total = 0;
+     for(let i=0;i<results.length;i++){
+         total += Number(results[i].amountPaid)
+     }
+     return total
+ }
+ 
+
   return (
     <> 
       <div className="container"> 
       <h4>Transactions</h4> 
         <div className="my-4"> 
-          <div className='flex-space'>
-            <div className='form-group' style={{width:"100%"}}>
+          <div className='flex-space mb-2'>
+            <div className='form-group' style={{width:"100%",marginRight:10}}>
               <input type="text" className='form-control' value={keyword} onChange={e=> setKeyword(e.target.value)} placeholder='Search by TID,MOMO TID, Client names or playground title' />
             </div>
-            {/* <div className='form-group' style={{}}>
-              <input type="date" className='form-control'  />
-            </div> */}
+            <div className='form-group'>
+              <button className='btn btn-primary' onClick={() => navigate('/printer/'+keyword) }>Print</button>
+            </div>
           </div>
           <div>
             {isLoading ? (
@@ -128,6 +139,7 @@ function Transactions() {
                 </tbody>
               </table>
             )}
+            <h3>TOTAL: {calculateTotal()} RWF</h3>
           </div>
         </div>
       </div> 
