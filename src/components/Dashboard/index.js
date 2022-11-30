@@ -12,7 +12,7 @@ function Dashboard() {
   const { role } = useSelector((state) => state.user);
   if (role !== "admin") {
     // navigate("/");
-    window.location = "/profile"
+    window.location = "/"
     return null;
   }
 

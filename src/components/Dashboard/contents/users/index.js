@@ -40,7 +40,7 @@ useEffect(() => {
                     <td>{index + 1}</td>
                     <td>{item.fullName}</td>
                     <td>{item.email}</td>
-                    <td>{item.phone}</td>
+                    <td>0{item.phone}</td>
                     <td>{new Date(item.createdAt).toLocaleDateString()}</td>
                 </tr>
             )}

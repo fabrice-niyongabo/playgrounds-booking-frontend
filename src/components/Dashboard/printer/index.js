@@ -26,9 +26,15 @@ function Printer() {
                  item?.playground.title.toLowerCase().includes(k)  ||
                  item.randomTransactionId.toLowerCase().includes(k)  ||
                  item?.spTransactionId.toLowerCase().includes(k)
-                ))
+                ));
+                setTimeout(() => {
+                    window.print();
+                  }, 1500);
             }else{
-                setResults(res.data.transactions) 
+                setResults(res.data.transactions);
+                setTimeout(() => {
+                    window.print();
+                  }, 1500);
             }
       })
       .catch((error) => {

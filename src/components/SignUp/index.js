@@ -180,7 +180,7 @@ function SignUp() {
         dispatch(setuserCompanyName(res.data.companyName));
         dispatch(setUserRole(res.data.role));
         dispatch(setUserToken(res.data.token));
-        navigate("/profile");
+        navigate("/");
       })
       .catch((error) => {
         setIsSubmitting(false);
