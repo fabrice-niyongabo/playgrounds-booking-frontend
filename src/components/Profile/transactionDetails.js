@@ -27,6 +27,15 @@ function TransactionDetails({ showModal, setShowModal, transaction }) {
             </div>
             <div className="col border p-2">
               <p className="m-0">
+                <b>Client's Name</b> {transaction?.client?.fullName}
+              </p>
+              <p className="m-0">
+                <b>Client's Email</b> {transaction?.client?.email}
+              </p>
+              <p className="m-0">
+                <b>Client's Phone</b> {transaction?.client?.phone}
+              </p>
+              <p className="m-0">
                 <b>Playground Name</b> {transaction?.playground?.title}
               </p>
               <p className="m-0">
@@ -56,18 +65,16 @@ function TransactionDetails({ showModal, setShowModal, transaction }) {
                 <b>Payment Status: </b> {transaction.status}
               </p>
               <p className="m-0">
-                <b>Client Name: </b>{" "}
-                {transaction?.client?.fullName}
+                <b>Client Name: </b> {transaction?.client?.fullName}
               </p>
               <p className="m-0">
-                <b>Client Email: </b>{" "}
-                {transaction?.client?.email}
+                <b>Client Email: </b> {transaction?.client?.email}
               </p>
               <p>
                 <b>Transaction Date: </b>{" "}
                 {new Date(transaction.createdAt).toLocaleDateString()}
               </p>
-              
+
               <Link to={`/print/${transaction._id}`} target="_blank">
                 <button className="btn btn-primary">Print Ticket</button>
               </Link>
