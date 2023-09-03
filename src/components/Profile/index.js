@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import Header from "../Header";
-import { AiFillEdit } from "react-icons/ai";
 import "../../styles/profile.scss";
 import Axios from "axios";
 import { errorHandler, toastMessage } from "../../helpers";
@@ -78,9 +77,8 @@ function Profile() {
           >
             <h3 className="quicksand-font mb-0">{fullName}</h3>
             <span>&nbsp;&nbsp;</span>
-            <AiFillEdit
-              size={30}
-              color="#f46a06"
+            <i
+              className="bi bi-pen"
               style={{ cursor: "pointer" }}
               onClick={() => setShowModal(true)}
             />
